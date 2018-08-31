@@ -2,7 +2,36 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+
+  state = {
+    guests: [
+      {
+        name: 'Treasure',
+        isConfirmed: false,
+      },
+      {
+        name: 'Nick',
+        isConfirmed: true,
+      },
+      {
+        name: 'Khalil',
+        isConfirmed: true,
+      }
+    ],
+  };
+
+  getTotalInvited = () => this.state.guests.length;
+  
+  getTotalConfirmed = () => 
+    this.state.guests.reduce((total, guest) => 
+      total += (guest.isConfirmed ? 1 : 0), 
+    0);
+
   render() {
+    let totalGuests = this.getTotalInvited();
+    let totalConfirmed = this.getTotalConfirmed();
+    let totalUnconfirmed = (totalGuests - totalConfirmed);
+
     return (
       <div className="App">
         <header>
@@ -24,15 +53,15 @@ class App extends Component {
             <tbody>
               <tr>
                 <td>Attending:</td>
-                <td>2</td>
+                <td>{totalConfirmed}</td>
               </tr>
               <tr>
                 <td>Unconfirmed:</td>
-                <td>1</td>
+                <td>{totalUnconfirmed}</td>
               </tr>
               <tr>
                 <td>Total:</td>
-                <td>3</td>
+                <td>{totalGuests}</td>
               </tr>
             </tbody>
           </table>
