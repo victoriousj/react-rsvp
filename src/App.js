@@ -10,32 +10,37 @@ class App extends Component {
         key: 0,
         name: 'Treasure',
         isConfirmed: false,
+        isEditing: false,
       },
       {
         key: 1,
         name: 'Nick',
         isConfirmed: true,
+        isEditing: false,
       },
       {
         key: 2,
         name: 'Khalil',
         isConfirmed: true,
+        isEditing: true,
       }
     ],
   };
 
-  toggleConfirmationAt = keyToChange => 
+  togglePropAt = (propToChange, keyToChange) => 
     this.setState({
       guests: this.state.guests.map((guest, index) => {
         if (index === keyToChange) {
           return {
             ...guest,
-            isConfirmed: !guest.isConfirmed,
+            [propToChange]: !guest[propToChange],
           };
         }
         return guest;
       })
     });
+
+  toggleConfirmationAt = (index) => togglePropAt ("isCofirmed", index)
 
   getTotalInvited = () => this.state.guests.length;
   
