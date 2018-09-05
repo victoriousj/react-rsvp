@@ -44,6 +44,19 @@ class App extends Component {
 
   toggleEditingAt = (index) => this.togglePropAt("isEditing", index);
 
+  setNameAt = (name, keyToChange) => 
+  this.setState({
+    guests: this.state.guests.map((guest, index) => {
+      if (index === keyToChange) {
+        return {
+          ...guest,
+          name
+        };
+      }
+      return guest;
+    })
+  });
+
   getTotalInvited = () => this.state.guests.length;
   
   getTotalConfirmed = () => 
@@ -62,7 +75,7 @@ class App extends Component {
           <h1>RSVP</h1>
           <p>A Treehouse App</p>
           <form>
-              <input type="text" value="Safia" placeholder="Invite Someone" />
+              <input type="text" value="Safia" placeholder="Invite Someone" readOnly/>
               <button type="submit" name="submit" value="submit">Submit</button>
           </form>
         </header>
@@ -94,6 +107,7 @@ class App extends Component {
           guests={this.state.guests} 
           toggleConfirmationAt = {this.toggleConfirmationAt} 
           toggleEditingAt = {this.toggleEditingAt}
+          setNameAt = {this.setNameAt}
         />
 
         </div>
