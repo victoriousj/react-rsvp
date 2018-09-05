@@ -33,44 +33,50 @@ class App extends Component {
     this.setState({
       guests: this.state.guests.map((guest, index) => {
         return (index === keyToChange) 
-          ? {
+          ? { 
               ...guest, 
-              [propToChange]: !guest[propToChange]
+              [propToChange]: !guest[propToChange] 
             } 
-          : guest;
+          :   guest;
       })
     });
 
-  toggleEditingAt = (index) => this.togglePropAt("isEditing", index);
+  toggleEditingAt = (index) => 
+    this.togglePropAt("isEditing", index);
     
-  toggleConfirmationAt = (index) => this.togglePropAt("isConfirmed", index);
+  toggleConfirmationAt = (index) => 
+    this.togglePropAt("isConfirmed", index);
 
   setNameAt = (name, keyToChange) => 
-  this.setState({
-    guests: this.state.guests.map((guest, index) => {
-      return (index === keyToChange)
-        ? {
-          ...guest,
-          name
-        }
-        : guest;
-    })
-  });
+    this.setState({
+      guests: this.state.guests.map((guest, index) => {
+        return (index === keyToChange)
+          ? { 
+              ...guest,
+              name 
+            }
+          :   guest;
+      })
+    });
 
-  toggleFilter = () => this.setState({isFiltered: !this.state.isFiltered})
+  toggleFilter = () => 
+    this.setState({isFiltered: !this.state.isFiltered})
 
-  getTotalInvited = () => this.state.guests.length;
+  getTotalInvited = () => 
+    this.state.guests.length;
   
   getTotalConfirmed = () => 
     this.state.guests.reduce((total, guest) => 
       total += (guest.isConfirmed ? 1 : 0), 
     0);
 
-  removeGuestAt = (index) => this.setState({
-    guests: this.state.guests.filter((guest) => {
-      return guest.key !== index;
-    })
-  }); 
+  removeGuestAt = (index) => {
+    let guestCopy = [...this.state.guests];
+    guestCopy.splice(index, 1);
+    this.setState({
+      guests: [...guestCopy],
+    });
+  }
 
   render() {
     let totalGuests = this.getTotalInvited();
