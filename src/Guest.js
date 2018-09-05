@@ -10,7 +10,7 @@ const Guest = props =>
                 onChange={props.handleConfirmation}
             /> Confirmed
         </label>
-        <button>edit</button>
+        <button onClick={props.handleEditingToggle}>edit</button>
         <button>remove</button>
     </li>
     
@@ -18,6 +18,7 @@ Guest.propTypes = {
     name: PropTypes.string,
     isConfirmed: PropTypes.bool.isRequired,
     handleConfirmation: PropTypes.func.isRequired,
+    handleEditingToggle: PropTypes.func.isRequired,
 };
 
 
