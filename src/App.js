@@ -40,7 +40,9 @@ class App extends Component {
       })
     });
 
-  toggleConfirmationAt = (index) => togglePropAt ("isCofirmed", index)
+  toggleConfirmationAt = (index) => this.togglePropAt("isConfirmed", index);
+
+  toggleEditingAt = (index) => this.togglePropAt("isEditing", index);
 
   getTotalInvited = () => this.state.guests.length;
   
@@ -91,6 +93,7 @@ class App extends Component {
         <GuestList 
           guests={this.state.guests} 
           toggleConfirmationAt = {this.toggleConfirmationAt} 
+          toggleEditingAt = {this.toggleEditingAt}
         />
 
         </div>
