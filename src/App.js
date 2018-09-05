@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import './App.css';
 import GuestList from './GuestList';
 
@@ -31,30 +32,28 @@ class App extends Component {
   togglePropAt = (propToChange, keyToChange) => 
     this.setState({
       guests: this.state.guests.map((guest, index) => {
-        if (index === keyToChange) {
-          return {
-            ...guest,
-            [propToChange]: !guest[propToChange],
-          };
-        }
-        return guest;
+        return (index === keyToChange) 
+          ? {
+              ...guest, 
+              [propToChange]: !guest[propToChange]
+            } 
+          : guest;
       })
     });
 
-  toggleConfirmationAt = (index) => this.togglePropAt("isConfirmed", index);
-
   toggleEditingAt = (index) => this.togglePropAt("isEditing", index);
+    
+  toggleConfirmationAt = (index) => this.togglePropAt("isConfirmed", index);
 
   setNameAt = (name, keyToChange) => 
   this.setState({
     guests: this.state.guests.map((guest, index) => {
-      if (index === keyToChange) {
-        return {
+      return (index === keyToChange)
+        ? {
           ...guest,
           name
-        };
-      }
-      return guest;
+        }
+        : guest;
     })
   });
 
@@ -66,6 +65,12 @@ class App extends Component {
     this.state.guests.reduce((total, guest) => 
       total += (guest.isConfirmed ? 1 : 0), 
     0);
+
+  removeGuestAt = (index) => this.setState({
+    guests: this.state.guests.filter((guest) => {
+      return guest.key !== index;
+    })
+  }); 
 
   render() {
     let totalGuests = this.getTotalInvited();
@@ -112,10 +117,11 @@ class App extends Component {
          
         <GuestList 
           guests={this.state.guests} 
-          toggleConfirmationAt = {this.toggleConfirmationAt} 
-          toggleEditingAt = {this.toggleEditingAt}
           setNameAt = {this.setNameAt}
           isFiltered = {this.state.isFiltered}
+          removeGuestAt = {this.removeGuestAt} 
+          toggleEditingAt = {this.toggleEditingAt}
+          toggleConfirmationAt = {this.toggleConfirmationAt}
         />
         </div>
       </div>
