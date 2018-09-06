@@ -47,26 +47,26 @@ class App extends Component {
   }
 
   createNewGuest = () => {
-    let guestsCopy = [...this.state.guests];
-    let newGuest = {
-      key: this.getNextKey(),
-      name: this.state.pendingGuest,
-      isConfirmed: false,
-      isEditing: false,
-    };
-    guestsCopy.push(newGuest);
     this.setState(
       {
-        guests: guestsCopy,
+        guests: [
+          {
+            key: this.getNextKey(),
+            name: this.state.pendingGuest,
+            isConfirmed: false,
+            isEditing: false,
+          },
+          ...this.state.guests
+        ],
         pendingGuest: '',
       }
-    );
+    )
   }
 
   togglePropAt = (propToChange, keyToChange) => 
     this.setState({
-      guests: this.state.guests.map((guest, index) => {
-        return (index === keyToChange) 
+      guests: this.state.guests.map((guest) => {
+        return (guest.key === keyToChange) 
           ? { 
               ...guest, 
               [propToChange]: !guest[propToChange] 
@@ -78,8 +78,10 @@ class App extends Component {
   toggleEditingAt = (index) => 
     this.togglePropAt("isEditing", index);
     
-  toggleConfirmationAt = (index) => 
+  toggleConfirmationAt = (index) => {
+    console.log(index);
     this.togglePropAt("isConfirmed", index);
+  }
 
   setNameAt = (name, keyToChange) => 
     this.setState({
