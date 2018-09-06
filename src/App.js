@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 
-import './App.css';
 import GuestList from './GuestList';
 
 class App extends Component {
 
   state = {
     isFiltered: false,
+    pendingGuest: '',
+    currentKey: 0,
     guests: [
       {
         key: 0,
@@ -25,9 +26,42 @@ class App extends Component {
         name: 'Khalil',
         isConfirmed: true,
         isEditing: false,
-      }
+      },
     ],
   };
+
+  getNextKey = () => {
+    let highestKey = this.state.currentKey;
+    this.state.guests.forEach(guest => {
+      if ((guest.key >= highestKey) 
+        && (guest.key > this.state.currentKey)) { 
+        highestKey = guest.key;
+      }
+    });
+    this.setState({currentKey: ++highestKey});
+    return highestKey;
+  }
+
+  changePendingGuest = (e) => {
+    this.setState({pendingGuest: e.target.value});
+  }
+
+  createNewGuest = () => {
+    let guestsCopy = [...this.state.guests];
+    let newGuest = {
+      key: this.getNextKey(),
+      name: this.state.pendingGuest,
+      isConfirmed: false,
+      isEditing: false,
+    };
+    guestsCopy.push(newGuest);
+    this.setState(
+      {
+        guests: guestsCopy,
+        pendingGuest: '',
+      }
+    );
+  }
 
   togglePropAt = (propToChange, keyToChange) => 
     this.setState({
@@ -89,8 +123,8 @@ class App extends Component {
           <h1>RSVP</h1>
           <p>A Treehouse App</p>
           <form>
-              <input type="text" value="Safia" placeholder="Invite Someone" readOnly/>
-              <button type="submit" name="submit" value="submit">Submit</button>
+              <input type="text" value={this.state.pendingGuest} onChange={this.changePendingGuest} placeholder="Invite Someone"/>
+              <button type="button" onClick={this.createNewGuest} name="submit">Submit</button>
           </form>
         </header>
         <div className="main">
