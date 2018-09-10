@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import GuestList from './GuestList';
+import Counter from './Counter';
 
 class App extends Component {
 
@@ -141,22 +142,11 @@ class App extends Component {
                 /> Hide those who haven't responded
             </label>
           </div>
-          <table className="counter">
-            <tbody>
-              <tr>
-                <td>Attending:</td>
-                <td>{totalConfirmed}</td>
-              </tr>
-              <tr>
-                <td>Unconfirmed:</td>
-                <td>{totalUnconfirmed}</td>
-              </tr>
-              <tr>
-                <td>Total:</td>
-                <td>{totalGuests}</td>
-              </tr>
-            </tbody>
-          </table>
+          <Counter 
+             totalInvited = {totalGuests}
+             numberAttending = {totalConfirmed}
+             numberUnconfirmed =  {totalUnconfirmed}
+          />
          
         <GuestList 
           guests={this.state.guests} 
