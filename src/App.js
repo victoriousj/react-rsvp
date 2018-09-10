@@ -34,8 +34,8 @@ class App extends Component {
   getNextKey = () => {
     let highestKey = this.state.currentKey;
     this.state.guests.forEach(guest => {
-      if ((guest.key >= highestKey) 
-        && (guest.key > this.state.currentKey)) { 
+      if ((guest.key > highestKey) 
+      && (guest.key > this.state.currentKey)) { 
         highestKey = guest.key;
       }
     });
@@ -43,7 +43,7 @@ class App extends Component {
     return highestKey;
   }
 
-  changePendingGuest = (e) => {
+  changePendingGuest = e => {
     this.setState({pendingGuest: e.target.value});
   }
 
@@ -66,34 +66,24 @@ class App extends Component {
 
   togglePropAt = (propToChange, keyToChange) => 
     this.setState({
-      guests: this.state.guests.map((guest) => {
-        return (guest.key === keyToChange) 
-          ? { 
-              ...guest, 
-              [propToChange]: !guest[propToChange] 
-            } 
-          :   guest;
-      })
+      guests: this.state.guests.map((guest) =>
+        guest.key === keyToChange 
+          ? { ...guest, [propToChange]:!guest[propToChange] } : guest
+      )
     });
 
-  toggleEditingAt = (index) => 
+  toggleEditingAt = index => 
     this.togglePropAt("isEditing", index);
     
-  toggleConfirmationAt = (index) => {
-    console.log(index);
+  toggleConfirmationAt = index =>
     this.togglePropAt("isConfirmed", index);
-  }
 
   setNameAt = (name, keyToChange) => 
     this.setState({
-      guests: this.state.guests.map((guest, index) => {
-        return (index === keyToChange)
-          ? { 
-              ...guest,
-              name 
-            }
-          :   guest;
-      })
+      guests: this.state.guests.map(
+        (guest, index) =>
+          index === keyToChange ? {...guest, name} : guest
+      )
     });
 
   toggleFilter = () => 
@@ -107,14 +97,11 @@ class App extends Component {
       guest.isConfirmed ? total + 1 : total, 
     0);
 
-  removeGuestAt = (key) => {
-    let guestsFiltered = this.state.guests.filter((guest) => 
-      guest.key !== key);
-
+  removeGuestAt = key =>
     this.setState({
-      guests: [...guestsFiltered],
-    });
-  }
+      guests: this.state.guests.filter(guest => 
+        guest.key !== key),
+      });
 
   render() {
     let totalGuests = this.getTotalInvited();
