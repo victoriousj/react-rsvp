@@ -68,7 +68,17 @@ class App extends Component {
     this.setState({
       guests: this.state.guests.map((guest) =>
         guest.key === keyToChange 
-          ? { ...guest, [propToChange]:!guest[propToChange] } : guest
+          ? { ...guest, [propToChange]:!guest[propToChange] } 
+          : guest
+          )
+        });
+        
+  setNameAt = (name, keyToChange) => 
+    this.setState({
+      guests: this.state.guests.map((guest) =>
+          guest.key === keyToChange 
+          ? {...guest, name} 
+          : guest
       )
     });
 
@@ -77,14 +87,6 @@ class App extends Component {
     
   toggleConfirmationAt = index =>
     this.togglePropAt("isConfirmed", index);
-
-  setNameAt = (name, keyToChange) => 
-    this.setState({
-      guests: this.state.guests.map(
-        (guest, index) =>
-          index === keyToChange ? {...guest, name} : guest
-      )
-    });
 
   toggleFilter = () => 
     this.setState({isFiltered: !this.state.isFiltered})
