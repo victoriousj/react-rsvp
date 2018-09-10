@@ -104,12 +104,12 @@ class App extends Component {
   
   getTotalConfirmed = () => 
     this.state.guests.reduce((total, guest) => 
-      total += (guest.isConfirmed ? 1 : 0), 
+      guest.isConfirmed ? total + 1 : total, 
     0);
 
-  removeGuestAt = (index) => {
+  removeGuestAt = (key) => {
     let guestsFiltered = this.state.guests.filter((guest) => 
-      guest.key !== index);
+      guest.key !== key);
 
     this.setState({
       guests: [...guestsFiltered],
