@@ -160,6 +160,7 @@ class App extends Component {
         <GuestList 
           guests={this.state.guests} 
           setNameAt = {this.setNameAt}
+          pendingGuest = {this.state.pendingGuest}
           isFiltered = {this.state.isFiltered}
           removeGuestAt = {this.removeGuestAt} 
           toggleEditingAt = {this.toggleEditingAt}
