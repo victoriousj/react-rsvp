@@ -107,10 +107,11 @@ class App extends Component {
     0);
 
   removeGuestAt = (index) => {
-    let guestCopy = [...this.state.guests];
-    guestCopy.splice(index, 1);
+    let guestsFiltered = this.state.guests.filter((guest) => 
+      guest.key !== index);
+
     this.setState({
-      guests: [...guestCopy],
+      guests: [...guestsFiltered],
     });
   }
 
