@@ -17,18 +17,18 @@ const MainContent = props =>
         </label>
         </div>
         <Counter 
-            totalInvited = {props.totalGuests}
-            numberAttending = {props.totalConfirmed}
-            numberUnconfirmed =  {props.totalUnconfirmed}
+            totalInvited={props.totalGuests}
+            numberAttending={props.totalConfirmed}
+            numberUnconfirmed={props.totalUnconfirmed}
         />
         <GuestList 
             guests={props.guests} 
-            setNameAt = {props.setNameAt}
-            pendingGuest = {props.pendingGuest}
-            isFiltered = {props.isFiltered}
-            removeGuestAt = {props.removeGuestAt} 
-            toggleEditingAt = {props.toggleEditingAt}
-            toggleConfirmationAt = {props.toggleConfirmationAt}
+            setNameAt={props.setNameAt}
+            isFiltered={props.isFiltered}
+            pendingGuest={props.pendingGuest}
+            removeGuestAt={props.removeGuestAt} 
+            toggleEditingAt={props.toggleEditingAt}
+            toggleConfirmationAt={props.toggleConfirmationAt}
         />
     </div>
 

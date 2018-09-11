@@ -82,17 +82,13 @@ class App extends Component {
       )
     });
 
-  toggleEditingAt = index => 
-    this.togglePropAt("isEditing", index);
+  toggleEditingAt = index => this.togglePropAt("isEditing", index);
     
-  toggleConfirmationAt = index =>
-    this.togglePropAt("isConfirmed", index);
+  toggleConfirmationAt = index => this.togglePropAt("isConfirmed", index);
 
-  toggleFilter = () => 
-    this.setState({isFiltered: !this.state.isFiltered})
+  toggleFilter = () => this.setState({isFiltered: !this.state.isFiltered})
 
-  getTotalInvited = () => 
-    this.state.guests.length;
+  getTotalInvited = () => this.state.guests.length;
   
   getTotalConfirmed = () => 
     this.state.guests.reduce((total, guest) => 
@@ -112,22 +108,22 @@ class App extends Component {
     return (
       <div className="App">
         <Header 
-          createNewGuest={this.createNewGuest}
-          pendingGuest={this.state.pendingGuest}
           changePendingGuest={this.changePendingGuest}
+          pendingGuest={this.state.pendingGuest}
+          createNewGuest={this.createNewGuest}
         />
         <MainContent
-           pendingGuest={this.state.pendingGuest} 
            guests={this.state.guests}
            setNameAt={this.setNameAt}
-           isFiltered={this.state.isFiltered}
-           toggleFilter={this.toggleFilter}
-           removeGuestAt={this.removeGuestAt}
            totalInvited={totalGuests}
+           toggleFilter={this.toggleFilter}
            numberAttending={totalConfirmed}
+           isFiltered={this.state.isFiltered}
+           removeGuestAt={this.removeGuestAt}
            numberUnconfirmed={totalUnconfirmed}
-           toggleConfirmationAt={this.toggleConfirmationAt}
            toggleEditingAt={this.toggleEditingAt}
+           pendingGuest={this.state.pendingGuest} 
+           toggleConfirmationAt={this.toggleConfirmationAt}
         />
       </div>
     );

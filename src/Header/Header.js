@@ -14,8 +14,8 @@ const Header = props =>
             />
             <button 
                 type="button" 
-                onClick={props.createNewGuest} 
                 name="submit"
+                onClick={props.createNewGuest} 
             >Submit</button>
         </form>
     </header>
