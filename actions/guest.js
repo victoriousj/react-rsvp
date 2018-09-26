@@ -30,6 +30,12 @@ export const toggleGuestProp = (id, prop) => {
     };
 };
 
+export const toggleIsFiltered = () => {
+    return {
+        type: GuestActionTypes.TOGGLE_IS_FILTERED,
+    };
+};
+
 export const toggleGuestEditing = id => {
     return {
         type: GuestActionTypes.TOGGLE_GUEST_EDITING,
