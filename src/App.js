@@ -8,7 +8,7 @@ class App extends Component {
   state = {
     isFiltered: false,
     pendingGuest: '',
-    currentKey: 0,
+    currentKey: 2,
     guests: [
       {
         key: 0,
@@ -32,14 +32,8 @@ class App extends Component {
   };
 
   getNextKey = () => {
-    let highestKey = this.state.currentKey;
-    this.state.guests.forEach(guest => {
-      if ((guest.key > highestKey) 
-      && (guest.key > this.state.currentKey)) { 
-        highestKey = guest.key;
-      }
-    });
-    this.setState({currentKey: ++highestKey});
+    let highestKey = this.state.currentKey + 1;
+    this.setState({currentKey: highestKey});
     return highestKey;
   }
 
@@ -51,13 +45,13 @@ class App extends Component {
     this.setState(
       {
         guests: [
+          ...this.state.guests,
           {
             key: this.getNextKey(),
             name: this.state.pendingGuest,
             isConfirmed: false,
             isEditing: false,
           },
-          ...this.state.guests
         ],
         pendingGuest: '',
       }
