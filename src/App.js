@@ -76,9 +76,9 @@ class App extends Component {
       )
     });
 
-  toggleEditingAt = index => this.togglePropAt("isEditing", index);
+  toggleEditingAt = index => this.togglePropAt('isEditing', index);
     
-  toggleConfirmationAt = index => this.togglePropAt("isConfirmed", index);
+  toggleConfirmationAt = index => this.togglePropAt('isConfirmed', index);
 
   toggleFilter = () => this.setState({isFiltered: !this.state.isFiltered})
 
