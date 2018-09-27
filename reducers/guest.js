@@ -101,7 +101,7 @@ export default function Guest(state=initialState, action) {
             const toggleIsEditingAction = 
             { 
                 type: GuestActionTypes.TOGGLE_GUEST_PROP,
-                prop: "isEditing",
+                prop: 'isEditing',
                 id: action.id
             };
             return Guest(state, toggleIsEditingAction);
@@ -111,7 +111,7 @@ export default function Guest(state=initialState, action) {
             const toggleIsEditingAction = 
             { 
                 type: GuestActionTypes.TOGGLE_GUEST_PROP,
-                prop: "isConfirmed",
+                prop: 'isConfirmed',
                 id: action.id
             };
             return Guest(state, toggleIsEditingAction);

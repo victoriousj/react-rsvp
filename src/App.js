@@ -1,103 +1,122 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'redux';
 
 import Header from './Header/Header';
 import MainContent from './MainContent/MainContent';
+import * as GuestActionCreators from '../action/guest';
 
 class App extends Component {
 
-  state = {
-    isFiltered: false,
-    pendingGuest: '',
-    currentKey: 2,
-    guests: [
-      {
-        key: 0,
-        name: 'Treasure',
-        isConfirmed: false,
-        isEditing: false,
-      },
-      {
-        key: 1,
-        name: 'Nick',
-        isConfirmed: true,
-        isEditing: false,
-      },
-      {
-        key: 2,
-        name: 'Khalil',
-        isConfirmed: true,
-        isEditing: false,
-      },
-    ],
-  };
+  // state = {
+  //   isFiltered: false,
+  //   pendingGuest: '',
+  //   currentKey: 2,
+  //   guests: [
+  //     {
+  //       key: 0,
+  //       name: 'Treasure',
+  //       isConfirmed: false,
+  //       isEditing: false,
+  //     },
+  //     {
+  //       key: 1,
+  //       name: 'Nick',
+  //       isConfirmed: true,
+  //       isEditing: false,
+  //     },
+  //     {
+  //       key: 2,
+  //       name: 'Khalil',
+  //       isConfirmed: true,
+  //       isEditing: false,
+  //     },
+  //   ],
+  // };
 
-  getNextKey = () => {
-    let highestKey = this.state.currentKey + 1;
-    this.setState({currentKey: highestKey});
-    return highestKey;
-  }
+  // getNextKey = () => {
+  //   let highestKey = this.state.currentKey + 1;
+  //   this.setState({currentKey: highestKey});
+  //   return highestKey;
+  // }
 
-  changePendingGuest = e => {
-    this.setState({pendingGuest: e.target.value});
-  }
+  // changePendingGuest = e => {
+  //   this.setState({pendingGuest: e.target.value});
+  // }
 
-  createNewGuest = () => {
-    this.setState(
-      {
-        guests: [
-          ...this.state.guests,
-          {
-            key: this.getNextKey(),
-            name: this.state.pendingGuest,
-            isConfirmed: false,
-            isEditing: false,
-          },
-        ],
-        pendingGuest: '',
-      }
-    )
-  }
+  // createNewGuest = () => {
+  //   this.setState(
+  //     {
+  //       guests: [
+  //         ...this.state.guests,
+  //         {
+  //           key: this.getNextKey(),
+  //           name: this.state.pendingGuest,
+  //           isConfirmed: false,
+  //           isEditing: false,
+  //         },
+  //       ],
+  //       pendingGuest: '',
+  //     }
+  //   )
+  // }
 
-  togglePropAt = (propToChange, keyToChange) => 
-    this.setState({
-      guests: this.state.guests.map((guest) =>
-        guest.key === keyToChange 
-          ? { ...guest, [propToChange]:!guest[propToChange] } 
-          : guest
-        )
-      });
+  // togglePropAt = (propToChange, keyToChange) => 
+  //   this.setState({
+  //     guests: this.state.guests.map((guest) =>
+  //       guest.key === keyToChange 
+  //         ? { ...guest, [propToChange]:!guest[propToChange] } 
+  //         : guest
+  //       )
+  //     });
         
-  setNameAt = (name, keyToChange) => 
-    this.setState({
-      guests: this.state.guests.map((guest) =>
-          guest.key === keyToChange 
-          ? {...guest, name} 
-          : guest
-      )
-    });
+  // setNameAt = (name, keyToChange) => 
+  //   this.setState({
+  //     guests: this.state.guests.map((guest) =>
+  //         guest.key === keyToChange 
+  //         ? {...guest, name} 
+  //         : guest
+  //     )
+  //   });
 
-  toggleEditingAt = index => this.togglePropAt('isEditing', index);
+  // toggleEditingAt = index => this.togglePropAt('isEditing', index);
     
-  toggleConfirmationAt = index => this.togglePropAt('isConfirmed', index);
+  // toggleConfirmationAt = index => this.togglePropAt('isConfirmed', index);
 
-  toggleFilter = () => this.setState({isFiltered: !this.state.isFiltered})
+  // toggleFilter = () => this.setState({isFiltered: !this.state.isFiltered})
 
-  getTotalInvited = () => this.state.guests.length;
+  // getTotalInvited = () => this.state.guests.length;
   
-  getTotalConfirmed = () => 
-    this.state.guests.reduce((total, guest) => 
-      guest.isConfirmed ? total + 1 : total, 
-    0);
+  // getTotalConfirmed = () => 
+  //   this.state.guests.reduce((total, guest) => 
+  //     guest.isConfirmed ? total + 1 : total, 
+  //   0);
 
-  removeGuestAt = key =>
-    this.setState(
-      {guests: this.state.guests.filter(guest => guest.key !== key)}
-    );
+  // removeGuestAt = key =>
+  //   this.setState(
+  //     {guests: this.state.guests.filter(guest => guest.key !== key)}
+  //   );
 
+  
   render() {
-    let totalGuests = this.getTotalInvited();
-    let totalConfirmed = this.getTotalConfirmed();
-    let totalUnconfirmed = (totalGuests - totalConfirmed);
+    const { dispatch, guests, isFiltered, pendingGuest, currentKey } = this.props;
+    const removeGuest = bindActionCreators(GuestActionCreators.removeGuest, dispatch);
+    const createGuest = bindActionCreators(GuestActionCreators.createGuest, dispatch);
+    const setGuestName = bindActionCreators(GuestActionCreators.setGuestName, dispatch);
+    const toggleGuestProp = bindActionCreators(GuestActionCreators.toggleGuestProp, dispatch);
+    const toggleIsFiltered = bindActionCreators(GuestActionCreators.toggleIsFiltered, dispatch);
+    const toggleGuestEditing = bindActionCreators(GuestActionCreators.toggleGuestEditing, dispatch);
+    const toggleGuestConfirmation = bindActionCreators(GuestActionCreators.toggleGuestConfirmation, dispatch);
+
+    const getTotalInvited = function() { return this.guests.length };
+    
+    const getTotalConfirmed = function() { return reduce((total, guest) => 
+        guest.isConfirmed ? total + 1 : total, 0);
+    };
+    
+    const getTotalUnconfirmed = function() { 
+        return (this.getTotalInvited() - this.getTotalConfirmed()); 
+    };
 
     return (
       <div className="App">
@@ -124,4 +143,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => (
+  {
+    guests: state.guests,
+    isFiltered: state.isFiltered,
+    currentKey: state.currentKey,
+    pendingGuest: state.pendingGuest,
+  }
+);
+
+export default connect(mapStateToProps)(App);
