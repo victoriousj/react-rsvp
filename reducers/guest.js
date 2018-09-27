@@ -28,14 +28,6 @@ const initialState = {
       },
     ],
     getNextKey: function() { return ++this.currentKey },
-    getTotalInvited: function() { return this.guests.length },
-    getTotalConfirmed: function() { return reduce((total, guest) => 
-        guest.isConfirmed ? total + 1 : total, 
-      0);
-    },
-    getTotalUnconfirmed: function() { 
-        return this.getTotalInvited() - this.getTotalConfirmed() 
-    },
 }
 
 export default function Guest(state=initialState, action) {
@@ -55,8 +47,8 @@ export default function Guest(state=initialState, action) {
                 {
                     id: state.getNextKey(),
                     key: state.currentKey,
-                    name: action.name,
                     isConfirmed: false,
+                    name: action.name,
                     isEditing: false,
                 }
             ];
@@ -115,7 +107,14 @@ export default function Guest(state=initialState, action) {
                 id: action.id
             };
             return Guest(state, toggleIsEditingAction);
-        }
+        };
+
+        case GuestActionTypes.CHANGE_PENDING_GUEST: {
+            return {
+                ...state,
+                pendingGuest: action.e.target.value
+            }
+        };
 
         default:
             return state;

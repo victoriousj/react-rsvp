@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'redux';
+import { connect } from 'react-redux';
 
 import Header from './Header/Header';
 import MainContent from './MainContent/MainContent';
-import * as GuestActionCreators from '../action/guest';
+import * as GuestActionCreators from '../actions/guest';
 
 class App extends Component {
   static propTypes = {
@@ -16,40 +16,39 @@ class App extends Component {
     const removeGuest = bindActionCreators(GuestActionCreators.removeGuest, dispatch);
     const createGuest = bindActionCreators(GuestActionCreators.createGuest, dispatch);
     const setGuestName = bindActionCreators(GuestActionCreators.setGuestName, dispatch);
-    const toggleGuestProp = bindActionCreators(GuestActionCreators.toggleGuestProp, dispatch);
+    // const toggleGuestProp = bindActionCreators(GuestActionCreators.toggleGuestProp, dispatch);
     const toggleIsFiltered = bindActionCreators(GuestActionCreators.toggleIsFiltered, dispatch);
     const toggleGuestEditing = bindActionCreators(GuestActionCreators.toggleGuestEditing, dispatch);
+    const changePendingGuest = bindActionCreators(GuestActionCreators.changePendingGuest, dispatch);
     const toggleGuestConfirmation = bindActionCreators(GuestActionCreators.toggleGuestConfirmation, dispatch);
 
-    const getTotalInvited = function() { return this.guests.length };
+    let totalInvited = guests.length;
     
-    const getTotalConfirmed = function() { return reduce((total, guest) => 
-        guest.isConfirmed ? total + 1 : total, 0);
-    };
+    let totalConfirmed = 
+      guests.reduce((total, guest) => guest.isConfirmed ? total + 1 : total, 0);
     
-    const getTotalUnconfirmed = function() { 
-        return (this.getTotalInvited() - this.getTotalConfirmed()); 
-    };
+    let totalUnconfirmed = totalInvited - totalConfirmed;
 
     return (
+      
       <div className="App">
         <Header 
-          changePendingGuest={this.changePendingGuest}
-          pendingGuest={this.state.pendingGuest}
-          createNewGuest={this.createNewGuest}
+          pendingGuest={pendingGuest}
+          createNewGuest={createGuest}
+          changePendingGuest={changePendingGuest}
         />
         <MainContent
-           guests={this.state.guests}
-           setNameAt={this.setNameAt}
-           totalInvited={totalGuests}
-           toggleFilter={this.toggleFilter}
+           guests={guests}
+           isFiltered={isFiltered}
+           setNameAt={setGuestName}
+           totalInvited={totalInvited}
+           pendingGuest={pendingGuest} 
+           removeGuestAt={removeGuest}
+           toggleFilter={toggleIsFiltered}
            numberAttending={totalConfirmed}
-           isFiltered={this.state.isFiltered}
-           removeGuestAt={this.removeGuestAt}
            numberUnconfirmed={totalUnconfirmed}
-           toggleEditingAt={this.toggleEditingAt}
-           pendingGuest={this.state.pendingGuest} 
-           toggleConfirmationAt={this.toggleConfirmationAt}
+           toggleEditingAt={toggleGuestEditing}
+           toggleConfirmationAt={toggleGuestConfirmation}
         />
       </div>
     );

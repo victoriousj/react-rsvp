@@ -43,6 +43,13 @@ export const toggleGuestEditing = id => {
     };
 };
 
+export const changePendingGuest = e => {
+    return {
+        type: GuestActionTypes.CHANGE_PENDING_GUEST,
+        e
+    };
+};
+
 export const toggleGuestConfirmation = id => {
     return {
         type: GuestActionTypes.TOGGLE_GUEST_CONFIRMATION,
