@@ -44,10 +44,10 @@ export default function Guest(state=initialState, action) {
         case GuestActionTypes.CREATE_GUEST: {
             const addGuestList = [
                 {
+                    name: state.pendingGuest,
                     id: state.getNextKey(),
                     key: state.currentKey,
                     isConfirmed: false,
-                    name: state.pendingGuest,
                     isEditing: false,
                 },
                 ...state.guests
@@ -62,8 +62,8 @@ export default function Guest(state=initialState, action) {
         case GuestActionTypes.SET_GUEST_NAME: {
             const setGuestNameList = state.guests.map(guest =>
                 guest.id === action.id
-                ? {...guest, name: action.name}
-                : guest
+                    ? {...guest, name: action.name}
+                    : guest
             );
             return {
                 ...state,
@@ -74,8 +74,8 @@ export default function Guest(state=initialState, action) {
         case GuestActionTypes.TOGGLE_GUEST_PROP: {
             const toggleGuestPropList = state.guests.map(guest =>
                 guest.id === action.id
-                ? {...guest, [action.prop]: !guest[action.prop]}
-                : guest
+                    ? {...guest, [action.prop]: !guest[action.prop]}
+                    : guest
             );
             return {
                 ...state,
@@ -101,13 +101,13 @@ export default function Guest(state=initialState, action) {
         };
 
         case GuestActionTypes.TOGGLE_GUEST_CONFIRMATION: {
-            const toggleIsEditingAction = 
+            const toggleConfirmationAction = 
             { 
                 type: GuestActionTypes.TOGGLE_GUEST_PROP,
                 prop: 'isConfirmed',
                 id: action.id
             };
-            return Guest(state, toggleIsEditingAction);
+            return Guest(state, toggleConfirmationAction);
         };
 
         case GuestActionTypes.CHANGE_PENDING_GUEST: {
