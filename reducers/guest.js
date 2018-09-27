@@ -9,22 +9,22 @@ const initialState = {
         id: 0,
         key: 0,
         name: 'Treasure',
-        isConfirmed: false,
         isEditing: false,
+        isConfirmed: false,
       },
       {
         id: 1,
         key: 1,
         name: 'Nick',
-        isConfirmed: true,
         isEditing: false,
+        isConfirmed: true,
       },
       {
         id: 2,
         key: 2,
         name: 'Khalil',
-        isConfirmed: true,
         isEditing: false,
+        isConfirmed: true,
       },
     ],
     getNextKey: function() { return ++this.currentKey },
@@ -84,6 +84,40 @@ export default function Guest(state=initialState, action) {
                 ? {...guest, [action.prop]: !guest[action.prop]}
                 : guest
             );
+            return {
+                ...state,
+                guests: toggleGuestPropList
+            };
         };
+
+        case GuestActionTypes.TOGGLE_IS_FILTERED: {
+            return {
+                ...state,
+                isFiltered: !state.isFiltered
+            };
+        };
+
+        case GuestActionTypes.TOGGLE_GUEST_EDITING: {
+            const toggleIsEditingAction = 
+            { 
+                type: GuestActionTypes.TOGGLE_GUEST_PROP,
+                prop: "isEditing",
+                id: action.id
+            };
+            return Guest(state, toggleIsEditingAction);
+        };
+
+        case GuestActionTypes.TOGGLE_GUEST_CONFIRMATION: {
+            const toggleIsEditingAction = 
+            { 
+                type: GuestActionTypes.TOGGLE_GUEST_PROP,
+                prop: "isConfirmed",
+                id: action.id
+            };
+            return Guest(state, toggleIsEditingAction);
+        }
+
+        default:
+            return state;
     }
 }
