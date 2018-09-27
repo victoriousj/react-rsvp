@@ -7,97 +7,10 @@ import MainContent from './MainContent/MainContent';
 import * as GuestActionCreators from '../action/guest';
 
 class App extends Component {
-
-  // state = {
-  //   isFiltered: false,
-  //   pendingGuest: '',
-  //   currentKey: 2,
-  //   guests: [
-  //     {
-  //       key: 0,
-  //       name: 'Treasure',
-  //       isConfirmed: false,
-  //       isEditing: false,
-  //     },
-  //     {
-  //       key: 1,
-  //       name: 'Nick',
-  //       isConfirmed: true,
-  //       isEditing: false,
-  //     },
-  //     {
-  //       key: 2,
-  //       name: 'Khalil',
-  //       isConfirmed: true,
-  //       isEditing: false,
-  //     },
-  //   ],
-  // };
-
-  // getNextKey = () => {
-  //   let highestKey = this.state.currentKey + 1;
-  //   this.setState({currentKey: highestKey});
-  //   return highestKey;
-  // }
-
-  // changePendingGuest = e => {
-  //   this.setState({pendingGuest: e.target.value});
-  // }
-
-  // createNewGuest = () => {
-  //   this.setState(
-  //     {
-  //       guests: [
-  //         ...this.state.guests,
-  //         {
-  //           key: this.getNextKey(),
-  //           name: this.state.pendingGuest,
-  //           isConfirmed: false,
-  //           isEditing: false,
-  //         },
-  //       ],
-  //       pendingGuest: '',
-  //     }
-  //   )
-  // }
-
-  // togglePropAt = (propToChange, keyToChange) => 
-  //   this.setState({
-  //     guests: this.state.guests.map((guest) =>
-  //       guest.key === keyToChange 
-  //         ? { ...guest, [propToChange]:!guest[propToChange] } 
-  //         : guest
-  //       )
-  //     });
-        
-  // setNameAt = (name, keyToChange) => 
-  //   this.setState({
-  //     guests: this.state.guests.map((guest) =>
-  //         guest.key === keyToChange 
-  //         ? {...guest, name} 
-  //         : guest
-  //     )
-  //   });
-
-  // toggleEditingAt = index => this.togglePropAt('isEditing', index);
-    
-  // toggleConfirmationAt = index => this.togglePropAt('isConfirmed', index);
-
-  // toggleFilter = () => this.setState({isFiltered: !this.state.isFiltered})
-
-  // getTotalInvited = () => this.state.guests.length;
-  
-  // getTotalConfirmed = () => 
-  //   this.state.guests.reduce((total, guest) => 
-  //     guest.isConfirmed ? total + 1 : total, 
-  //   0);
-
-  // removeGuestAt = key =>
-  //   this.setState(
-  //     {guests: this.state.guests.filter(guest => guest.key !== key)}
-  //   );
-
-  
+  static propTypes = {
+    guests: PropTypes.array.isRequired,
+  };
+ 
   render() {
     const { dispatch, guests, isFiltered, pendingGuest, currentKey } = this.props;
     const removeGuest = bindActionCreators(GuestActionCreators.removeGuest, dispatch);

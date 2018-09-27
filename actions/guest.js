@@ -1,6 +1,6 @@
 import * as GuestActionTypes from  '../actiontypes/guest';
 
-export const removeQuest = id => {
+export const removeGuest = id => {
     return {
         type: GuestActionTypes.REMOVE_GUEST,
         id,
