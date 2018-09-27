@@ -12,11 +12,10 @@ class App extends Component {
   };
  
   render() {
-    const { dispatch, guests, isFiltered, pendingGuest, currentKey } = this.props;
+    const { dispatch, guests, isFiltered, pendingGuest } = this.props;
     const removeGuest = bindActionCreators(GuestActionCreators.removeGuest, dispatch);
     const createGuest = bindActionCreators(GuestActionCreators.createGuest, dispatch);
     const setGuestName = bindActionCreators(GuestActionCreators.setGuestName, dispatch);
-    // const toggleGuestProp = bindActionCreators(GuestActionCreators.toggleGuestProp, dispatch);
     const toggleIsFiltered = bindActionCreators(GuestActionCreators.toggleIsFiltered, dispatch);
     const toggleGuestEditing = bindActionCreators(GuestActionCreators.toggleGuestEditing, dispatch);
     const changePendingGuest = bindActionCreators(GuestActionCreators.changePendingGuest, dispatch);
@@ -24,11 +23,11 @@ class App extends Component {
 
     let totalInvited = guests.length;
     
-    let totalConfirmed = 
+    let totalConfirmed =
       guests.reduce((total, guest) => guest.isConfirmed ? total + 1 : total, 0);
     
     let totalUnconfirmed = totalInvited - totalConfirmed;
-
+    
     return (
       
       <div className="App">
@@ -45,8 +44,8 @@ class App extends Component {
            pendingGuest={pendingGuest} 
            removeGuestAt={removeGuest}
            toggleFilter={toggleIsFiltered}
-           numberAttending={totalConfirmed}
-           numberUnconfirmed={totalUnconfirmed}
+           totalConfirmed={totalConfirmed}
+           totalUnconfirmed={totalUnconfirmed}
            toggleEditingAt={toggleGuestEditing}
            toggleConfirmationAt={toggleGuestConfirmation}
         />

@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import GuestReducer from '../reducers/guest';
-import registerServiceWorker from './registerServiceWorker';
 
 const store = createStore(
     GuestReducer,
@@ -13,8 +12,9 @@ const store = createStore(
   );
 
 ReactDOM.render(
-<Provider store={store}>    
-    <App />
-</Provider>, 
-document.getElementById('root'));
-registerServiceWorker();
+    <Provider store={store}>    
+        <App />
+    </Provider>,
+
+    document.getElementById('root')
+);

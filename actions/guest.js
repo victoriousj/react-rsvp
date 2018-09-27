@@ -7,10 +7,9 @@ export const removeGuest = id => {
     };
 };
 
-export const createGuest = name => {
+export const createGuest = () => {
     return {
         type: GuestActionTypes.CREATE_GUEST,
-        name
     };
 };
 

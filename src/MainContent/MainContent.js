@@ -17,9 +17,9 @@ const MainContent = props =>
         </label>
         </div>
         <Counter 
-            totalInvited={props.totalGuests}
-            numberAttending={props.totalConfirmed}
-            numberUnconfirmed={props.totalUnconfirmed}
+            totalInvited={props.totalInvited}
+            totalConfirmed={props.totalConfirmed}
+            totalUnconfirmed={props.totalUnconfirmed}
         />
         <GuestList 
             guests={props.guests} 
@@ -41,8 +41,8 @@ MainContent.propTypes = {
     removeGuestAt: PropTypes.func.isRequired,
     totalInvited: PropTypes.number.isRequired,
     toggleEditingAt: PropTypes.func.isRequired,
-    numberAttending: PropTypes.number.isRequired,
-    numberUnconfirmed: PropTypes.number.isRequired,
+    totalConfirmed: PropTypes.number.isRequired,
+    totalUnconfirmed: PropTypes.number.isRequired,
     toggleConfirmationAt: PropTypes.func.isRequired,
 }
 

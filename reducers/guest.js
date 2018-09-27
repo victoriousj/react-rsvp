@@ -43,17 +43,18 @@ export default function Guest(state=initialState, action) {
 
         case GuestActionTypes.CREATE_GUEST: {
             const addGuestList = [
-                ...state.guests,
                 {
                     id: state.getNextKey(),
                     key: state.currentKey,
                     isConfirmed: false,
-                    name: action.name,
+                    name: state.pendingGuest,
                     isEditing: false,
-                }
+                },
+                ...state.guests
             ];
             return {
                 ...state,
+                pendingGuest: '',
                 guests: addGuestList
             };
         }
